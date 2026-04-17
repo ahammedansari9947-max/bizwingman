@@ -42,30 +42,32 @@ You MUST respond strictly in the following JSON format. Do not use markdown bloc
 
     let result;
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       result = await model.generateContent(prompt);
     } catch (e: any) {
-      if (e.message && (e.message.includes("404 Not Found") || e.message.includes("503 Service Unavailable"))) {
-        console.warn("gemini-2.5-flash unavailable, falling back to gemini-pro");
-        const fallbackModel = genAI.getGenerativeModel({ model: "gemini-pro" });
-        result = await fallbackModel.generateContent(prompt);
-      } else {
-        throw e;
-      }
+      console.warn("gemini-2.0-flash failed, falling back to gemini-1.5-flash:", e.message);
+      const fallbackModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      result = await fallbackModel.generateContent(prompt);
     }
 
     const text = result.response.text();
     
-    // Attempt to parse JSON. Sometimes Gemini includes markdown backticks even when instructed not to.
+    // Attempt to parse JSON robustly
     let parsedData;
     try {
-      // Remove markdown formatting if present
-      const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-      parsedData = JSON.parse(cleanedText);
+      // Find the first '{' and last '}' to extract the JSON object
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if (start === -1 || end === -1) throw new Error("No JSON object found in response");
+      
+      const jsonStr = text.substring(start, end + 1);
+      parsedData = JSON.parse(jsonStr);
     } catch (parseError) {
       console.error("JSON Parsing failed:", parseError, "Raw Output:", text);
-      // If parsing fails, return the raw text so the client doesn't just crash silently
-      return NextResponse.json({ error: "Failed to parse AI output into JSON format.", rawOutput: text }, { status: 500 });
+      return NextResponse.json({ 
+        error: "The AI response was not in a valid format. Please try again.",
+        details: parseError instanceof Error ? parseError.message : String(parseError)
+      }, { status: 500 });
     }
 
     return NextResponse.json(parsedData);

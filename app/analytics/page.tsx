@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
   Loader2
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 
 export default function AnalyticsPage() {
