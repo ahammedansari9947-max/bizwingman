@@ -28,7 +28,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto bg-[#090e1a] border-r border-border/40 text-card-foreground">
+    <div className="flex h-full flex-col overflow-y-auto bg-[#090e1a] border-r border-border text-card-foreground">
       <div className="px-3 py-6 flex-1">
         <Link href="/" className="flex items-center pl-3 mb-10 gap-2 group">
           <div className="relative w-8 h-8 mr-2 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg shadow-primary/20">
@@ -47,7 +47,7 @@ export function Sidebar() {
                 "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer rounded-md transition-all duration-200 relative",
                 pathname === route.href 
                   ? "bg-primary/10 text-primary" 
-                  : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
+                  : "text-muted-foreground hover:bg-[#bfffe6]/5 hover:text-foreground"
               )}
             >
               {pathname === route.href && (

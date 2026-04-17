@@ -135,9 +135,10 @@ export default function GenerateCampaignPage() {
 
         <div className="lg:col-span-8">
           {loading ? (
-            <div className="h-[600px] flex flex-col items-center justify-center space-y-6 saas-card bg-white/[0.03] border-border/40 transition-all duration-700">
-              <div className="p-5 bg-primary/10 rounded-2xl">
-                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+            <div className="h-[600px] flex flex-col items-center justify-center space-y-6 saas-card bg-white/[0.03] border-border transition-all duration-700">
+              <div className="p-5 bg-primary/10 rounded-2xl relative">
+                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+                <Loader2 className="h-10 w-10 animate-spin text-primary relative z-10" />
               </div>
               <div className="text-center space-y-3">
                 <p className="text-2xl font-semibold text-white">Generating your campaign...</p>
@@ -147,9 +148,9 @@ export default function GenerateCampaignPage() {
           ) : results ? (
             <CampaignResults data={results} />
           ) : (
-            <div className="h-[600px] flex flex-col items-center justify-center saas-card bg-white/[0.02] border-border/40 text-muted-foreground">
-              <div className="p-8 bg-white/5 rounded-full mb-8">
-                <Sparkles className="h-14 w-14 opacity-20 text-primary" />
+            <div className="h-[600px] flex flex-col items-center justify-center saas-card bg-white/[0.02] border-border text-muted-foreground">
+              <div className="p-8 bg-white/5 rounded-full mb-8 group-hover:bg-[#96bfe6]/5 transition-colors">
+                <Sparkles className="h-14 w-14 opacity-20 text-[#96bfe6]" />
               </div>
               <div className="text-center space-y-2">
                 <p className="text-2xl font-semibold text-white">Ready to scale your brand?</p>
