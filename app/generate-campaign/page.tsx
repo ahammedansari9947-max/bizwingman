@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Sparkles, Loader2, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { CampaignResults, type CampaignData } from "@/components/campaign-results";
 
@@ -54,6 +54,21 @@ export default function GenerateCampaignPage() {
       
       setResults(data);
       toast.success("Campaign generated successfully!");
+
+      // Save to backend
+      try {
+        await fetch("/api/save-campaign", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            businessName: formData.businessName,
+            data: data
+          }),
+        });
+      } catch (saveError) {
+        console.error("Failed to save campaign:", saveError);
+        // We don't block the user if saving fails, as results are already generated
+      }
     } catch (error) {
       const err = error as Error;
       toast.error(err.message || "An error occurred while generating the campaign.");
@@ -100,19 +115,46 @@ export default function GenerateCampaignPage() {
                   <Input id="targetAudience" name="targetAudience" placeholder="e.g. Local families in Kochi" value={formData.targetAudience} onChange={handleChange} className="saas-input h-10 text-sm w-full" required />
                 </div>
                 
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 relative z-[50]">
                   <Label htmlFor="tone" className="text-sm font-semibold text-muted-foreground dark:text-gray-300">Brand Voice</Label>
-                  <Select onValueChange={(value: any) => { if (typeof value === "string") setFormData({ ...formData, tone: value }) }}>
-                    <SelectTrigger className="saas-input h-10 text-sm w-full">
-                      <SelectValue placeholder="Select tone" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white dark:bg-[#0f172a] border-border">
-                      <SelectItem value="Friendly">Friendly</SelectItem>
-                      <SelectItem value="Professional">Professional</SelectItem>
-                      <SelectItem value="Playful">Playful</SelectItem>
-                      <SelectItem value="Inspirational">Inspirational</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  
+                  {/* Desktop Custom Select */}
+                  <div className="hidden lg:block">
+                    <Select 
+                      value={formData.tone || ""}
+                      onValueChange={(value) => setFormData({ ...formData, tone: value ?? "" })}
+                    >
+                      <SelectTrigger className="saas-input h-10 text-sm w-full relative z-[51]">
+                        <SelectValue placeholder="Select tone" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white dark:bg-[#0f172a] border-border z-[999]">
+                        <SelectItem value="Friendly">Friendly</SelectItem>
+                        <SelectItem value="Professional">Professional</SelectItem>
+                        <SelectItem value="Playful">Playful</SelectItem>
+                        <SelectItem value="Inspirational">Inspirational</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Mobile Native Select */}
+                  <div className="lg:hidden relative">
+                    <select
+                      name="tone"
+                      value={formData.tone || ""}
+                      onChange={(e) => setFormData({ ...formData, tone: e.target.value })}
+                      className="saas-input h-10 text-sm w-full bg-white dark:bg-white/[0.03] border border-border rounded-lg px-3 pr-10 text-foreground outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                      required
+                    >
+                      <option value="" disabled>Select tone</option>
+                      <option value="Friendly">Friendly</option>
+                      <option value="Professional">Professional</option>
+                      <option value="Playful">Playful</option>
+                      <option value="Inspirational">Inspirational</option>
+                    </select>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="pt-2">
