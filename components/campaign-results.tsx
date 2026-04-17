@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, MessageSquare, Sparkles, ChevronRight, Share2 } from "lucide-react";
 import { toast } from "sonner";
@@ -82,10 +82,10 @@ export function CampaignResults({ data }: { data: CampaignData }) {
       </div>
 
       <div key={selectedDay} className="animate-in fade-in slide-in-from-right-2 duration-300 w-full">
-        <Card className="overflow-hidden bg-gradient-to-b from-[#111827] to-[#0f172a] border border-white/10 rounded-xl shadow-xl w-full h-auto">
+        <Card className="overflow-hidden bg-white/50 dark:bg-gradient-to-b dark:from-[#111827] dark:to-[#0f172a] border border-border dark:border-white/10 rounded-xl shadow-xl w-full h-auto">
           <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-0">
             {/* Visual Header */}
-            <div className="relative w-full h-[200px] sm:h-[300px] lg:h-auto lg:aspect-[4/3] bg-[#0b1120] overflow-hidden">
+            <div className="relative w-full h-[200px] sm:h-[300px] lg:h-auto lg:aspect-[4/3] bg-muted dark:bg-[#0b1120] overflow-hidden">
               {imageLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse">
                   <Sparkles className="w-8 h-8 text-primary opacity-20" />
@@ -117,17 +117,17 @@ export function CampaignResults({ data }: { data: CampaignData }) {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[#2dbc94]">{activeCalendar?.platform || "Social"}</span>
-                  <span className="w-1 h-1 rounded-full bg-white/20" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{activeCalendar?.theme || "Engagement"}</span>
+                  <span className="w-1 h-1 rounded-full bg-border dark:bg-white/20" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground dark:text-gray-400">{activeCalendar?.theme || "Engagement"}</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight tracking-tight break-words">
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground dark:text-white leading-tight tracking-tight break-words">
                   {activeCalendar?.preview || "Campaign Asset"}
                 </h3>
               </div>
 
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground dark:text-gray-400 uppercase tracking-widest">
                     <MessageSquare className="w-3.5 h-3.5 text-primary" />
                     Social Copy
                   </div>
@@ -135,13 +135,13 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => handleCopy(`${activeCaption.caption}\n\nImage Prompt: ${activeCaption.imagePrompt}`, `${selectedDay} copied!`)}
-                    className="h-8 w-8 hover:bg-white/10 rounded-lg text-white transition-all shrink-0"
+                    className="h-8 w-8 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-foreground dark:text-white transition-all shrink-0"
                   >
                     <Copy className="w-3.5 h-3.5" />
                   </Button>
                 </div>
-                <div className="p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
-                  <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed break-words whitespace-pre-wrap">
+                <div className="p-4 bg-black/5 dark:bg-white/5 rounded-xl border border-border dark:border-white/10 backdrop-blur-sm">
+                  <p className="text-sm sm:text-base text-muted-foreground dark:text-gray-300 font-normal leading-relaxed break-words whitespace-pre-wrap">
                     {activeCaption.caption}
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                 <div className="flex flex-col gap-3">
                   <div className="flex items-start gap-2 text-[10px] font-semibold text-gray-500 italic">
                     <Sparkles className="w-3.5 h-3.5 text-[#bcd382] shrink-0 mt-0.5" />
-                    <span className="line-clamp-2 break-words">"{activeCaption.imagePrompt}"</span>
+                    <span className="line-clamp-2 break-words">&quot;{activeCaption.imagePrompt}&quot;</span>
                   </div>
                   <div className="flex items-center gap-1.5 text-primary font-black text-[10px] uppercase tracking-widest">
                     <ChevronRight className="w-3.5 h-3.5" />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,7 +17,6 @@ import {
   ArrowUpRight,
   Loader2
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 
 export default function AnalyticsPage() {
@@ -121,20 +121,20 @@ export default function AnalyticsPage() {
           {/* Top Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {metrics.map((metric) => (
-              <Card key={metric.label} className="saas-card bg-gradient-to-b from-[#111827] to-[#0f172a] border-white/10">
+              <Card key={metric.label} className="saas-card bg-white/50 dark:bg-gradient-to-b dark:from-[#111827] dark:to-[#0f172a] border-border dark:border-white/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className={cn("p-2 rounded-lg bg-white/5", metric.color)}>
+                    <div className={cn("p-2 rounded-lg bg-primary/5 dark:bg-white/5", metric.color)}>
                       <metric.icon className="w-5 h-5" />
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                    <div className="flex items-center gap-1 text-[10px] font-bold text-green-600 dark:text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
                       <ArrowUpRight className="w-3 h-3" />
                       {metric.change}
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs text-gray-400 font-medium">{metric.label}</p>
-                    <h3 className="text-2xl font-bold text-white">{metric.value}</h3>
+                    <p className="text-xs text-muted-foreground font-medium">{metric.label}</p>
+                    <h3 className="text-2xl font-bold text-foreground dark:text-white">{metric.value}</h3>
                   </div>
                 </CardContent>
               </Card>
@@ -144,9 +144,9 @@ export default function AnalyticsPage() {
           {/* Charts & Distribution */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Posts per Platform */}
-            <Card className="saas-card border-white/10 bg-[#0b1120]">
+            <Card className="saas-card border-border dark:border-white/10 bg-white/50 dark:bg-[#0b1120]">
               <CardHeader>
-                <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
+                <CardTitle className="text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-primary" />
                   Platform Distribution
                 </CardTitle>
@@ -155,13 +155,13 @@ export default function AnalyticsPage() {
                 {platformStats.map((platform) => (
                   <div key={platform.name} className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2 text-gray-300">
+                      <div className="flex items-center gap-2 text-muted-foreground dark:text-gray-300">
                         <platform.icon className="w-4 h-4" />
                         {platform.name}
                       </div>
-                      <span className="font-bold text-white">{platform.posts} posts</span>
+                      <span className="font-bold text-foreground dark:text-white">{platform.posts} posts</span>
                     </div>
-                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
                       <div 
                         className={cn("h-full transition-all duration-1000", platform.color)} 
                         style={{ width: `${platform.percentage}%` }}
@@ -173,18 +173,18 @@ export default function AnalyticsPage() {
             </Card>
 
             {/* AI Insights */}
-            <Card className="saas-card border-white/10 bg-[#0b1120]">
+            <Card className="saas-card border-border dark:border-white/10 bg-white/50 dark:bg-[#0b1120]">
               <CardHeader>
-                <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-yellow-400" />
+                <CardTitle className="text-lg font-bold text-foreground dark:text-white flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-yellow-500" />
                   AI Insights
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {insights.map((insight, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 flex gap-4 group hover:border-primary/20 transition-all">
+                  <div key={i} className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-transparent dark:border-white/5 flex gap-4 group hover:border-primary/20 transition-all">
                     <div className="w-1.5 h-full rounded-full bg-primary/20 shrink-0" />
-                    <p className="text-sm text-gray-300 leading-relaxed group-hover:text-white transition-colors">
+                    <p className="text-sm text-muted-foreground dark:text-gray-300 leading-relaxed group-hover:text-foreground dark:group-hover:text-white transition-colors">
                       {insight.text}
                     </p>
                   </div>
@@ -223,7 +223,7 @@ export default function AnalyticsPage() {
           <div className="space-y-2">
             <h3 className="text-xl font-bold text-white">No data available</h3>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-              You haven't generated any campaigns yet. Generate your first blueprint to see real-time analytics.
+              You haven&apos;t generated any campaigns yet. Generate your first blueprint to see real-time analytics.
             </p>
           </div>
           <Link href="/generate-campaign">

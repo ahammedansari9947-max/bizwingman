@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -14,9 +15,8 @@ import {
   Clock,
   Loader2
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
 
   // Compute stats
   const totalCampaigns = campaigns.length;
-  const totalPosts = campaigns.reduce((acc, curr) => acc + (curr.data?.captions?.length || 0), 0);
+  const totalPosts = campaigns.reduce((acc: number, curr: any) => acc + (curr.data?.captions?.length || 0), 0);
   const platforms = Array.from(new Set(campaigns.flatMap(c => c.data?.calendar?.map((i: any) => i.platform) || [])));
   const totalPlatforms = platforms.length;
 
@@ -86,7 +86,7 @@ export default function Home() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Overview of your brand's marketing performance.</p>
+          <p className="text-sm text-muted-foreground">Overview of your brand&apos;s marketing performance.</p>
         </div>
         <Link href="/generate-campaign">
           <Button className="saas-button-primary h-10 px-6 rounded-lg font-bold">
@@ -102,20 +102,19 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat) => (
-              <Card key={stat.label} className="saas-card bg-gradient-to-b from-[#111827] to-[#0f172a] border-white/10">
+              <Card key={stat.label} className="saas-card bg-white/50 dark:bg-gradient-to-b dark:from-[#111827] dark:to-[#0f172a] border-border dark:border-white/10">
                 <CardContent className="p-6 space-y-4">
                   <div className="flex items-center justify-between">
                     <stat.icon className={`w-5 h-5 ${stat.color}`} />
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Live</span>
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Live</span>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs text-gray-400 font-medium">{stat.label}</p>
-                    <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
+                    <p className="text-xs text-muted-foreground font-medium">{stat.label}</p>
+                    <h3 className="text-2xl font-bold text-foreground dark:text-white">{stat.value}</h3>
                   </div>
-                  <p className="text-xs text-gray-400">{stat.subtext}</p>
+                  <p className="text-xs text-muted-foreground">{stat.subtext}</p>
                 </CardContent>
               </Card>
             ))}
@@ -127,8 +126,8 @@ export default function Home() {
             <div className="lg:col-span-2 space-y-4">
               <h3 className="text-lg font-bold text-foreground">Recent Activity</h3>
               {campaigns.length > 0 ? (
-                <div className="saas-card border-white/10 overflow-hidden bg-white/5 dark:bg-black/20">
-                  <div className="divide-y divide-white/10">
+                <div className="saas-card border-border dark:border-white/10 overflow-hidden bg-white/50 dark:bg-black/20">
+                  <div className="divide-y divide-border dark:divide-white/10">
                     {campaigns.slice(0, 5).map((activity) => (
                       <div key={activity.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors cursor-pointer group">
                         <div className="flex items-center gap-4">
