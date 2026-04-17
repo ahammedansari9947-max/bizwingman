@@ -41,20 +41,19 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%; /* Very light slate #f8fafc */
-    --foreground: 222.2 47.4% 11.2%; /* Dark slate #0f172a */
-    --card: 0 0% 100%; /* Pure white */
+    --background: 210 40% 98%;
+    --foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
-    
-    /* New Palette */
-    --primary: 163 61% 40%; /* Slightly darker #2dbc94 for better light-mode contrast */
+
+    --primary: 163 61% 40%;
     --primary-foreground: 0 0% 100%;
-    --accent-light: 157 100% 94%; /* Lighter mint for bg tints */
-    --secondary-accent: 210 63% 65%; /* Slightly more saturated sky blue */
-    --soft-highlight: 77 48% 67%; /* #bcd382 */
-    
+    --accent-light: 157 100% 94%;
+    --secondary-accent: 210 63% 65%;
+    --soft-highlight: 77 48% 67%;
+
     --secondary: 210 40% 94%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 94%;
@@ -70,19 +69,19 @@
   }
 
   .dark {
-    --background: 222.2 47.4% 9%; /* #0b1120 */
+    --background: 222.2 47.4% 9%;
     --foreground: 0 0% 100%;
     --card: 221.2 39.3% 11%;
     --card-foreground: 210 20% 98%;
     --popover: 221.2 39.3% 11%;
     --popover-foreground: 210 20% 98%;
-    
-    --primary: 163 61% 46%; /* #2dbc94 */
+
+    --primary: 163 61% 46%;
     --primary-foreground: 163 100% 5%;
-    --accent-light: 157 100% 87%; /* #bfffe6 */
-    --secondary-accent: 210 63% 75%; /* #96bfe6 */
-    --soft-highlight: 77 48% 67%; /* #bcd382 */
-    
+    --accent-light: 157 100% 87%;
+    --secondary-accent: 210 63% 75%;
+    --soft-highlight: 77 48% 67%;
+
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 0 0% 100%;
     --muted: 215 27.9% 12%;
@@ -102,14 +101,18 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/30;
-    background: radial-gradient(circle at top right, rgba(150, 191, 230, 0.08), transparent), 
+    @apply bg-background text-foreground antialiased;
+    /* selection colour via plain CSS — avoids @apply opacity modifier bug */
+    ::selection {
+      background-color: rgba(45, 188, 148, 0.3);
+    }
+    background: radial-gradient(circle at top right, rgba(150, 191, 230, 0.08), transparent),
                 radial-gradient(circle at bottom left, rgba(45, 188, 148, 0.05), transparent),
                 #f8fafc;
     min-height: 100vh;
   }
   .dark body {
-    background: radial-gradient(circle at top right, rgba(150, 191, 230, 0.03), transparent), 
+    background: radial-gradient(circle at top right, rgba(150, 191, 230, 0.03), transparent),
                 radial-gradient(circle at bottom left, rgba(45, 188, 148, 0.03), transparent),
                 #0b1120;
   }
@@ -126,31 +129,47 @@
   }
   .dark .saas-card {
     background: linear-gradient(to bottom, #111827, #0f172a);
-    @apply border-border/40;
+    /* border-border/40 — written as plain CSS to avoid Tailwind v4 @apply opacity bug */
+    border-color: color-mix(in srgb, var(--color-border) 40%, transparent);
   }
 
   .saas-card:hover {
-    @apply border-primary/20 shadow-md;
+    @apply shadow-md;
+    /* border-primary/20 — plain CSS */
+    border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
   }
 
   .saas-input {
-    @apply bg-white border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-foreground;
+    @apply bg-white border-border focus:ring-2 focus:border-primary transition-all duration-200 text-foreground;
+    /* focus:ring-primary/20 — plain CSS */
+  }
+  .saas-input:focus {
+    outline: none;
+    ring-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
   }
   .dark .saas-input {
     @apply bg-input;
   }
 
   .saas-button-primary {
-    @apply text-white font-semibold shadow-sm transition-all duration-200 active:scale-[0.98];
+    @apply text-white font-semibold shadow-sm transition-all duration-200;
     background: linear-gradient(to right, #2dbc94, #96bfe6);
+    active-scale: 0.98;
   }
-  
+  .saas-button-primary:active {
+    transform: scale(0.98);
+  }
   .saas-button-primary:hover {
-    @apply brightness-110;
+    filter: brightness(1.1);
     box-shadow: 0 0 15px rgba(45, 188, 148, 0.2);
   }
 
   .saas-button-secondary {
-    @apply bg-secondary/80 text-secondary-foreground hover:bg-secondary border border-border transition-all duration-200;
+    @apply bg-secondary text-secondary-foreground border border-border transition-all duration-200;
+    /* bg-secondary/80 — plain CSS */
+    background-color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
+  }
+  .saas-button-secondary:hover {
+    @apply bg-secondary;
   }
 }
