@@ -63,50 +63,50 @@ export default function GenerateCampaignPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 md:p-10 max-w-6xl space-y-10">
+    <div className="container mx-auto p-6 md:p-10 max-w-6xl space-y-12">
       <div className="space-y-3">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Campaign Generator</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl">
+        <h1 className="text-5xl font-bold tracking-tight text-white">Campaign Generator</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
           Enter your business details below. Our AI will craft a high-converting 7-day marketing strategy tailored specifically for your brand.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-12 gap-10 items-start">
+      <div className="grid lg:grid-cols-12 gap-12 items-start">
         <div className="lg:col-span-4 lg:sticky lg:top-10">
           <Card className="saas-card">
-            <CardHeader className="border-b border-border/50 bg-secondary/20">
-              <CardTitle className="text-xl">Strategy Inputs</CardTitle>
-              <CardDescription>Refine your campaign parameters.</CardDescription>
+            <CardHeader className="border-b border-border/40 bg-white/5">
+              <CardTitle className="text-xl font-semibold text-white">Strategy Inputs</CardTitle>
+              <CardDescription className="text-muted-foreground">Refine your campaign parameters.</CardDescription>
             </CardHeader>
-            <CardContent className="pt-8">
+            <CardContent className="pt-8 px-8 pb-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="businessName" className="text-sm font-semibold">Business Name</Label>
-                  <Input id="businessName" name="businessName" placeholder="e.g. Malabar Spice Co." value={formData.businessName} onChange={handleChange} className="saas-input" required />
+                  <Label htmlFor="businessName" className="text-sm font-semibold text-gray-300">Business Name</Label>
+                  <Input id="businessName" name="businessName" placeholder="e.g. Malabar Spice Co." value={formData.businessName} onChange={handleChange} className="saas-input h-11" required />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="businessType" className="text-sm font-semibold">Industry</Label>
-                  <Input id="businessType" name="businessType" placeholder="e.g. Spices Export, Restaurant" value={formData.businessType} onChange={handleChange} className="saas-input" required />
+                  <Label htmlFor="businessType" className="text-sm font-semibold text-gray-300">Industry</Label>
+                  <Input id="businessType" name="businessType" placeholder="e.g. Spices Export, Restaurant" value={formData.businessType} onChange={handleChange} className="saas-input h-11" required />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="campaignGoal" className="text-sm font-semibold">Campaign Goal</Label>
-                  <Input id="campaignGoal" name="campaignGoal" placeholder="e.g. Increase Onam sales" value={formData.campaignGoal} onChange={handleChange} className="saas-input" required />
+                  <Label htmlFor="campaignGoal" className="text-sm font-semibold text-gray-300">Campaign Goal</Label>
+                  <Input id="campaignGoal" name="campaignGoal" placeholder="e.g. Increase Onam sales" value={formData.campaignGoal} onChange={handleChange} className="saas-input h-11" required />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="targetAudience" className="text-sm font-semibold">Target Audience</Label>
-                  <Input id="targetAudience" name="targetAudience" placeholder="e.g. Local families in Kochi" value={formData.targetAudience} onChange={handleChange} className="saas-input" required />
+                  <Label htmlFor="targetAudience" className="text-sm font-semibold text-gray-300">Target Audience</Label>
+                  <Input id="targetAudience" name="targetAudience" placeholder="e.g. Local families in Kochi" value={formData.targetAudience} onChange={handleChange} className="saas-input h-11" required />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="tone" className="text-sm font-semibold">Brand Voice</Label>
+                  <Label htmlFor="tone" className="text-sm font-semibold text-gray-300">Brand Voice</Label>
                   <Select onValueChange={(value: any) => { if (typeof value === "string") setFormData({ ...formData, tone: value }) }}>
-                    <SelectTrigger className="saas-input">
+                    <SelectTrigger className="saas-input h-11">
                       <SelectValue placeholder="Select tone" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-[#0f172a] border-border/60">
                       <SelectItem value="Friendly">Friendly</SelectItem>
                       <SelectItem value="Professional">Professional</SelectItem>
                       <SelectItem value="Playful">Playful</SelectItem>
@@ -135,25 +135,25 @@ export default function GenerateCampaignPage() {
 
         <div className="lg:col-span-8">
           {loading ? (
-            <div className="h-[500px] flex flex-col items-center justify-center space-y-6 saas-card bg-secondary/10 border-dashed border-2 animate-pulse">
-              <div className="p-4 bg-primary/10 rounded-full">
+            <div className="h-[600px] flex flex-col items-center justify-center space-y-6 saas-card bg-white/[0.03] border-border/40 transition-all duration-700">
+              <div className="p-5 bg-primary/10 rounded-2xl">
                 <Loader2 className="h-10 w-10 animate-spin text-primary" />
               </div>
-              <div className="text-center space-y-2">
-                <p className="text-xl font-bold">Generating your campaign...</p>
-                <p className="text-muted-foreground">Our AI is analyzing your brand and market trends.</p>
+              <div className="text-center space-y-3">
+                <p className="text-2xl font-semibold text-white">Generating your campaign...</p>
+                <p className="text-muted-foreground max-w-md">Our AI is analyzing your brand and market trends to build the perfect strategy.</p>
               </div>
             </div>
           ) : results ? (
             <CampaignResults data={results} />
           ) : (
-            <div className="h-[500px] flex flex-col items-center justify-center saas-card bg-secondary/5 border-dashed border-2 text-muted-foreground">
-              <div className="p-6 bg-secondary/50 rounded-full mb-6">
-                <Sparkles className="h-12 w-12 opacity-30 text-primary" />
+            <div className="h-[600px] flex flex-col items-center justify-center saas-card bg-white/[0.02] border-border/40 text-muted-foreground">
+              <div className="p-8 bg-white/5 rounded-full mb-8">
+                <Sparkles className="h-14 w-14 opacity-20 text-primary" />
               </div>
-              <div className="text-center space-y-1">
-                <p className="text-xl font-bold text-foreground/80">Ready to scale?</p>
-                <p>Complete the form to see your tailored 7-day marketing strategy.</p>
+              <div className="text-center space-y-2">
+                <p className="text-2xl font-semibold text-white">Ready to scale your brand?</p>
+                <p className="max-w-sm">Complete the form to unlock your tailored 7-day marketing blueprint.</p>
               </div>
             </div>
           )}

@@ -64,18 +64,18 @@
   }
 
   .dark {
-    --background: 222.2 47.4% 11.2%; /* #0f172a */
-    --foreground: 0 0% 100%; /* white */
-    --card: 221.2 39.3% 11%; /* #111827 */
-    --card-foreground: 0 0% 100%;
+    --background: 222.2 47.4% 9%; /* Slightly deeper background #0b1120 */
+    --foreground: 0 0% 100%; /* Pure white */
+    --card: 221.2 39.3% 11%;
+    --card-foreground: 210 20% 98%;
     --popover: 221.2 39.3% 11%;
-    --popover-foreground: 0 0% 100%;
+    --popover-foreground: 210 20% 98%;
     --primary: 142.1 70.6% 45.3%; /* #22c55e */
     --primary-foreground: 0 0% 100%;
     --secondary: 215 27.9% 16.9%; /* #1f2937 */
     --secondary-foreground: 0 0% 100%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 210 20% 65%; /* gray-400 */
+    --muted: 215 27.9% 12%;
+    --muted-foreground: 215 20% 75%; /* Lighter gray for better readability */
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
@@ -91,38 +91,42 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    background: linear-gradient(to bottom, #1e293b, #0f172a);
+    @apply bg-background text-foreground antialiased selection:bg-primary/30;
+    background: linear-gradient(to bottom, #1e293b, #0b1120);
     background-attachment: fixed;
     min-height: 100vh;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white font-semibold tracking-tight;
   }
 }
 
 /* Clean SaaS Components */
 @layer components {
   .saas-card {
-    @apply bg-card border border-border shadow-sm rounded-xl overflow-hidden transition-all duration-200;
+    @apply border border-border/60 shadow-lg shadow-black/20 rounded-xl overflow-hidden transition-all duration-300;
+    background: linear-gradient(to bottom, #111827, #0f172a);
   }
 
   .saas-card:hover {
-    @apply border-border/80 shadow-md;
+    @apply border-border/90 shadow-xl shadow-black/40;
   }
 
   .saas-input {
-    @apply bg-input border-border focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200;
+    @apply bg-input border-border/80 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 text-foreground;
   }
 
   .saas-button-primary {
-    @apply text-white font-semibold shadow-sm transition-all duration-300 active:scale-[0.98];
+    @apply text-white font-semibold shadow-sm transition-all duration-200 active:scale-[0.98];
     background: linear-gradient(to right, #22c55e, #3b82f6);
   }
   
   .saas-button-primary:hover {
-    background: linear-gradient(to right, #34d399, #60a5fa);
-    box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.39);
+    @apply brightness-110;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
   }
 
   .saas-button-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border transition-all duration-200;
+    @apply bg-secondary/80 text-secondary-foreground hover:bg-secondary border border-border/50 transition-all duration-200;
   }
 }

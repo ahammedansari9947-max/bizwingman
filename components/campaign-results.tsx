@@ -33,17 +33,17 @@ export function CampaignResults({ data }: { data: CampaignData }) {
   };
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <div className="flex items-center justify-between pb-4 border-b">
-        <div>
-          <h2 className="text-2xl font-bold text-foreground">Marketing Blueprint</h2>
-          <p className="text-sm text-muted-foreground mt-1">Sequential 7-day strategy optimized for your brand goal.</p>
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <div className="flex items-center justify-between pb-6 border-b border-border/40">
+        <div className="space-y-1">
+          <h2 className="text-3xl font-bold text-white tracking-tight">Marketing Blueprint</h2>
+          <p className="text-muted-foreground">Sequential 7-day strategy optimized for your brand goal.</p>
         </div>
         <Button 
           variant="outline" 
           size="sm" 
           onClick={handleCopyAll}
-          className="saas-button-secondary rounded-lg font-semibold"
+          className="saas-button-secondary rounded-lg font-semibold h-10 px-4"
         >
           <Share2 className="w-4 h-4 mr-2" />
           Copy Full Strategy
@@ -54,39 +54,40 @@ export function CampaignResults({ data }: { data: CampaignData }) {
         {data.captions.map((item) => {
           const calendar = data.calendar.find((c) => c.day === item.day);
           const cleanPrompt = item.imagePrompt.replace(/[\r\n]+/g, " ").trim();
-          const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(cleanPrompt)}?width=800&height=800&nologo=true`;
+          const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(cleanPrompt)}?width=1000&height=1000&nologo=true`;
 
           return (
             <Card key={item.day} className="saas-card group">
               <div className="flex flex-col h-full">
                 {/* Visual Header */}
-                <div className="relative aspect-video bg-secondary/30 overflow-hidden border-b">
+                <div className="relative aspect-video bg-[#0b1120] overflow-hidden border-b border-border/40">
                   <img
                     src={imageUrl}
                     alt={`Visual for ${item.day}`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
                     loading="lazy"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1604050936284-88db09a96ea0?auto=format&fit=crop&w=800&q=80";
                     }}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
                   <div className="absolute top-4 left-4">
-                    <div className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white uppercase tracking-wider">
+                    <div className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-bold text-white uppercase tracking-wider">
                       {item.day}
                     </div>
                   </div>
                 </div>
 
                 {/* Content Body */}
-                <div className="p-6 flex flex-col flex-1 space-y-5">
+                <div className="p-8 flex flex-col flex-1 space-y-6">
                   <div className="flex justify-between items-start">
-                    <div className="space-y-1">
+                    <div className="space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">{calendar?.platform || "Social"}</span>
-                        <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{calendar?.theme || "Engagement"}</span>
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-primary">{calendar?.platform || "Social"}</span>
+                        <span className="w-1 h-1 rounded-full bg-border/60" />
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{calendar?.theme || "Engagement"}</span>
                       </div>
-                      <h3 className="text-lg font-bold text-foreground leading-tight">
+                      <h3 className="text-xl font-semibold text-white leading-tight">
                         {calendar?.preview || "Campaign Asset"}
                       </h3>
                     </div>
@@ -94,32 +95,32 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleCopy(`${item.caption}\n\nImage Prompt: ${item.imagePrompt}`, `${item.day} caption copied!`)}
-                      className="h-9 w-9 hover:bg-secondary rounded-lg"
+                      className="h-10 w-10 hover:bg-white/5 rounded-lg transition-all duration-200"
                     >
-                      <Copy className="w-4 h-4 text-muted-foreground" />
+                      <Copy className="w-4 h-4 text-muted-foreground group-hover:text-white" />
                     </Button>
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                      <MessageSquare className="w-3 h-3" />
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                      <MessageSquare className="w-3.5 h-3.5" />
                       Social Copy
                     </div>
-                    <div className="p-4 bg-secondary/30 rounded-xl border border-border/50">
-                      <p className="text-sm text-foreground/90 leading-relaxed whitespace-pre-wrap">
+                    <div className="p-5 bg-black/20 rounded-xl border border-border/40">
+                      <p className="text-base text-muted-foreground font-normal leading-relaxed whitespace-pre-wrap">
                         {item.caption}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-border/50">
-                    <div className="flex items-center justify-between text-[10px]">
-                      <div className="flex items-center gap-2 text-muted-foreground font-medium italic truncate max-w-[200px]">
-                        <Sparkles className="w-3 h-3 text-primary/60 shrink-0" />
-                        "{item.imagePrompt}"
+                  <div className="mt-auto pt-6 border-t border-border/40">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <div className="flex items-center gap-2 text-muted-foreground font-medium italic truncate max-w-[250px]">
+                        <Sparkles className="w-3.5 h-3.5 text-primary/80 shrink-0" />
+                        <span className="truncate">"{item.imagePrompt}"</span>
                       </div>
-                      <div className="flex items-center gap-1 text-primary font-bold">
-                        <ChevronRight className="w-3 h-3" />
+                      <div className="flex items-center gap-1.5 text-primary font-bold">
+                        <ChevronRight className="w-3.5 h-3.5" />
                         Ready to Post
                       </div>
                     </div>
