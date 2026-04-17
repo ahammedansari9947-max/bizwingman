@@ -43,17 +43,17 @@ export function CampaignResults({ data }: { data: CampaignData }) {
   const days = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-2xl mx-auto">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="space-y-0.5">
-          <h2 className="text-xl font-bold text-foreground tracking-tight">Marketing Blueprint</h2>
-          <p className="text-muted-foreground text-xs">Interactive 7-day strategy roadmap.</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Marketing Blueprint</h2>
+          <p className="text-muted-foreground text-xs sm:text-sm">Interactive 7-day strategy roadmap.</p>
         </div>
         <Button 
           variant="outline" 
           size="sm" 
           onClick={handleCopyAll}
-          className="saas-button-secondary rounded-lg font-semibold h-9 px-3 text-xs hover:bg-primary/5 shrink-0"
+          className="saas-button-secondary rounded-lg font-semibold h-9 px-4 text-xs hover:bg-primary/5 w-full sm:w-auto shrink-0"
         >
           <Share2 className="w-3.5 h-3.5 mr-2" />
           Copy All
@@ -61,7 +61,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
       </div>
 
       {/* Day Selector Pilled Buttons */}
-      <div className="flex flex-wrap gap-1.5 py-1">
+      <div className="flex flex-wrap gap-2 py-1">
         {days.map((day) => (
           <button
             key={day}
@@ -70,7 +70,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
               setImageLoading(true);
             }}
             className={cn(
-              "rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-300",
+              "rounded-full px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300",
               selectedDay === day 
                 ? "bg-[#2dbc94] text-white shadow-md shadow-[#2dbc94]/20 scale-105" 
                 : "bg-black/5 dark:bg-white/5 text-muted-foreground hover:bg-black/10 dark:hover:bg-white/10"
@@ -81,11 +81,11 @@ export function CampaignResults({ data }: { data: CampaignData }) {
         ))}
       </div>
 
-      <div key={selectedDay} className="animate-in fade-in slide-in-from-right-2 duration-300">
-        <Card className="overflow-hidden bg-gradient-to-b from-[#111827] to-[#0f172a] border border-white/10 rounded-xl shadow-xl">
-          <div className="flex flex-col">
+      <div key={selectedDay} className="animate-in fade-in slide-in-from-right-2 duration-300 w-full">
+        <Card className="overflow-hidden bg-gradient-to-b from-[#111827] to-[#0f172a] border border-white/10 rounded-xl shadow-xl w-full h-auto">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-0">
             {/* Visual Header */}
-            <div className="relative h-[280px] sm:h-[320px] bg-[#0b1120] overflow-hidden">
+            <div className="relative w-full h-[200px] sm:h-[300px] lg:h-auto lg:aspect-[4/3] bg-[#0b1120] overflow-hidden">
               {imageLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse">
                   <Sparkles className="w-8 h-8 text-primary opacity-20" />
@@ -113,14 +113,14 @@ export function CampaignResults({ data }: { data: CampaignData }) {
             </div>
 
             {/* Content Body */}
-            <div className="p-6 sm:p-8 flex flex-col space-y-6">
+            <div className="p-4 sm:p-6 lg:p-10 flex flex-col justify-center space-y-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[#2dbc94]">{activeCalendar?.platform || "Social"}</span>
                   <span className="w-1 h-1 rounded-full bg-white/20" />
                   <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{activeCalendar?.theme || "Engagement"}</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight tracking-tight break-words">
                   {activeCalendar?.preview || "Campaign Asset"}
                 </h3>
               </div>
@@ -135,13 +135,13 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => handleCopy(`${activeCaption.caption}\n\nImage Prompt: ${activeCaption.imagePrompt}`, `${selectedDay} copied!`)}
-                    className="h-8 w-8 hover:bg-white/10 rounded-lg text-white transition-all"
+                    className="h-8 w-8 hover:bg-white/10 rounded-lg text-white transition-all shrink-0"
                   >
                     <Copy className="w-3.5 h-3.5" />
                   </Button>
                 </div>
                 <div className="p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
-                  <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed whitespace-pre-wrap">
+                  <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed break-words whitespace-pre-wrap">
                     {activeCaption.caption}
                   </p>
                 </div>
@@ -151,7 +151,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                 <div className="flex flex-col gap-3">
                   <div className="flex items-start gap-2 text-[10px] font-semibold text-gray-500 italic">
                     <Sparkles className="w-3.5 h-3.5 text-[#bcd382] shrink-0 mt-0.5" />
-                    <span className="line-clamp-2">"{activeCaption.imagePrompt}"</span>
+                    <span className="line-clamp-2 break-words">"{activeCaption.imagePrompt}"</span>
                   </div>
                   <div className="flex items-center gap-1.5 text-primary font-black text-[10px] uppercase tracking-widest">
                     <ChevronRight className="w-3.5 h-3.5" />
