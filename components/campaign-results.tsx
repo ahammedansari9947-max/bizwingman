@@ -36,14 +36,14 @@ export function CampaignResults({ data }: { data: CampaignData }) {
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <div className="flex items-center justify-between pb-6 border-b border-border">
         <div className="space-y-1">
-          <h2 className="text-3xl font-bold text-white tracking-tight">Marketing Blueprint</h2>
+          <h2 className="text-3xl font-bold text-foreground tracking-tight">Marketing Blueprint</h2>
           <p className="text-muted-foreground">Sequential 7-day strategy optimized for your brand goal.</p>
         </div>
         <Button 
           variant="outline" 
           size="sm" 
           onClick={handleCopyAll}
-          className="saas-button-secondary rounded-lg font-semibold h-10 px-4 hover:bg-[#bfffe6]/5"
+          className="saas-button-secondary rounded-lg font-semibold h-10 px-4 hover:bg-primary/5"
         >
           <Share2 className="w-4 h-4 mr-2" />
           Copy Full Strategy
@@ -60,17 +60,17 @@ export function CampaignResults({ data }: { data: CampaignData }) {
             <Card key={item.day} className="saas-card group">
               <div className="flex flex-col h-full">
                 {/* Visual Header */}
-                <div className="relative aspect-video bg-[#0b1120] overflow-hidden border-b border-border">
+                <div className="relative aspect-video bg-muted overflow-hidden border-b border-border">
                   <img
                     src={imageUrl}
                     alt={`Visual for ${item.day}`}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105"
                     loading="lazy"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1604050936284-88db09a96ea0?auto=format&fit=crop&w=800&q=80";
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
                   <div className="absolute top-4 left-4">
                     <div className="px-3 py-1.5 rounded-full bg-[#bcd382] border border-white/20 text-[11px] font-bold text-[#1a2e05] uppercase tracking-wider shadow-lg">
                       {item.day}
@@ -83,11 +83,11 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                   <div className="flex justify-between items-start">
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-bold uppercase tracking-widest text-[#96bfe6]">{calendar?.platform || "Social"}</span>
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-[#2dbc94] dark:text-[#96bfe6]">{calendar?.platform || "Social"}</span>
                         <span className="w-1 h-1 rounded-full bg-border" />
                         <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{calendar?.theme || "Engagement"}</span>
                       </div>
-                      <h3 className="text-xl font-semibold text-white leading-tight">
+                      <h3 className="text-xl font-semibold text-foreground leading-tight">
                         {calendar?.preview || "Campaign Asset"}
                       </h3>
                     </div>
@@ -95,7 +95,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleCopy(`${item.caption}\n\nImage Prompt: ${item.imagePrompt}`, `${item.day} caption copied!`)}
-                      className="h-10 w-10 hover:bg-[#bfffe6]/10 rounded-lg transition-all duration-200"
+                      className="h-10 w-10 hover:bg-primary/10 rounded-lg transition-all duration-200"
                     >
                       <Copy className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
                     </Button>
@@ -106,7 +106,7 @@ export function CampaignResults({ data }: { data: CampaignData }) {
                       <MessageSquare className="w-3.5 h-3.5" />
                       Social Copy
                     </div>
-                    <div className="p-5 bg-black/20 rounded-xl border border-border">
+                    <div className="p-5 bg-secondary/50 rounded-xl border border-border">
                       <p className="text-base text-muted-foreground font-normal leading-relaxed whitespace-pre-wrap">
                         {item.caption}
                       </p>

@@ -28,13 +28,13 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto bg-[#090e1a] border-r border-border text-card-foreground">
+    <div className="flex h-full flex-col overflow-y-auto bg-white dark:bg-[#090e1a] border-r border-border text-card-foreground">
       <div className="px-3 py-6 flex-1">
         <Link href="/" className="flex items-center pl-3 mb-10 gap-2 group">
-          <div className="relative w-8 h-8 mr-2 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg shadow-primary/20">
+          <div className="relative w-8 h-8 mr-2 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105 shadow-lg shadow-primary/10 dark:shadow-primary/20">
             <Leaf className="w-5 h-5 text-primary-foreground" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-white">
+          <h1 className="text-xl font-bold tracking-tight text-foreground dark:text-white">
             BizWingman
           </h1>
         </Link>

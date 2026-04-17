@@ -41,25 +41,31 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
+    --background: 210 40% 98%; /* Very light slate #f8fafc */
+    --foreground: 222.2 47.4% 11.2%; /* Dark slate #0f172a */
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 222.2 47.4% 11.2%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 142 76% 36%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14% 96%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    
+    /* New Palette */
+    --primary: 163 61% 40%; /* Slightly darker #2dbc94 for better light-mode contrast */
+    --primary-foreground: 0 0% 100%;
+    --accent-light: 157 100% 94%; /* Lighter mint for bg tints */
+    --secondary-accent: 210 63% 65%; /* Slightly more saturated sky blue */
+    --soft-highlight: 77 48% 67%; /* #bcd382 */
+    
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 94%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 142 76% 36%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 163 61% 40%;
     --radius: 0.75rem;
   }
 
@@ -71,7 +77,6 @@
     --popover: 221.2 39.3% 11%;
     --popover-foreground: 210 20% 98%;
     
-    /* New Palette */
     --primary: 163 61% 46%; /* #2dbc94 */
     --primary-foreground: 163 100% 5%;
     --accent-light: 157 100% 87%; /* #bfffe6 */
@@ -82,13 +87,13 @@
     --secondary-foreground: 0 0% 100%;
     --muted: 215 27.9% 12%;
     --muted-foreground: 215 20% 75%;
-    --accent: 210 63% 75%; /* Mapping secondary accent to default accent */
+    --accent: 210 63% 75%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 20% 98%;
-    --border: 210 63% 75% / 0.15; /* Subtle Sky Blue border */
+    --border: 210 63% 75% / 0.15;
     --input: 226.3 84.2% 4.5%;
-    --ring: 163 61% 46%; /* #2dbc94 */
+    --ring: 163 61% 46%;
   }
 }
 
@@ -98,29 +103,38 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30;
-    /* Subtle sky blue tint gradient */
-    background: linear-gradient(180deg, rgba(150, 191, 230, 0.05) 0%, rgba(11, 17, 32, 1) 100%), #0f172a;
+    background: linear-gradient(180deg, rgba(150, 191, 230, 0.08) 0%, rgba(248, 250, 252, 1) 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
+  .dark body {
+    background: linear-gradient(180deg, rgba(150, 191, 230, 0.05) 0%, rgba(11, 17, 32, 1) 100%), #0f172a;
+  }
   h1, h2, h3, h4, h5, h6 {
-    @apply text-white font-semibold tracking-tight;
+    @apply text-foreground font-semibold tracking-tight;
   }
 }
 
 /* Clean SaaS Components */
 @layer components {
   .saas-card {
-    @apply border border-border shadow-lg shadow-black/20 rounded-xl overflow-hidden transition-all duration-300;
+    @apply border border-border shadow-sm rounded-xl overflow-hidden transition-all duration-300;
+    background: white;
+  }
+  .dark .saas-card {
     background: linear-gradient(to bottom, #111827, #0f172a);
+    @apply border-border/40;
   }
 
   .saas-card:hover {
-    @apply border-primary/20 shadow-xl shadow-black/40;
+    @apply border-primary/20 shadow-md;
   }
 
   .saas-input {
-    @apply bg-input border-border focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 text-foreground;
+    @apply bg-white border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-foreground;
+  }
+  .dark .saas-input {
+    @apply bg-input;
   }
 
   .saas-button-primary {
@@ -130,7 +144,7 @@
   
   .saas-button-primary:hover {
     @apply brightness-110;
-    box-shadow: 0 0 15px rgba(45, 188, 148, 0.3);
+    box-shadow: 0 0 15px rgba(45, 188, 148, 0.2);
   }
 
   .saas-button-secondary {
