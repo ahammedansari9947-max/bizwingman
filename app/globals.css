@@ -103,12 +103,13 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30;
-    background: linear-gradient(180deg, rgba(150, 191, 230, 0.08) 0%, rgba(248, 250, 252, 1) 100%);
-    background-attachment: fixed;
+    background: var(--background);
     min-height: 100vh;
   }
   .dark body {
-    background: linear-gradient(180deg, rgba(150, 191, 230, 0.05) 0%, rgba(11, 17, 32, 1) 100%), #0f172a;
+    background: radial-gradient(circle at top right, rgba(150, 191, 230, 0.03), transparent), 
+                radial-gradient(circle at bottom left, rgba(45, 188, 148, 0.03), transparent),
+                #0b1120;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply text-foreground font-semibold tracking-tight;

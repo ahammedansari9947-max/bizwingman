@@ -55,7 +55,7 @@ export default function Home() {
       value: totalCampaigns.toString(),
       subtext: "Total stored in database",
       icon: Layers,
-      color: "text-blue-400"
+      color: "text-[#96bfe6]"
     },
     {
       label: "Total Posts Created",
@@ -67,16 +67,16 @@ export default function Home() {
     {
       label: "Platforms Used",
       value: totalPlatforms.toString(),
-      subtext: platforms.slice(0, 3).join(", ") || "No data yet",
+      subtext: platforms.slice(0, 2).join(", ") || "No data yet",
       icon: Smartphone,
-      color: "text-purple-400"
+      color: "text-[#bfffe6]"
     },
     {
       label: "Engagement Score",
       value: totalCampaigns > 0 ? "92%" : "0%",
       subtext: totalCampaigns > 0 ? "Projected efficiency" : "Start generating",
       icon: TrendingUp,
-      color: "text-orange-400"
+      color: "text-[#bcd382]"
     }
   ];
 

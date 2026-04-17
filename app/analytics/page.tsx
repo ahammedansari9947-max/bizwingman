@@ -70,7 +70,7 @@ export default function AnalyticsPage() {
       value: totalCampaigns > 0 ? `${(totalCampaigns * 1.5).toFixed(1)}k` : "0",
       change: totalCampaigns > 0 ? "+12.5%" : "0%",
       icon: Users,
-      color: "text-blue-400"
+      color: "text-[#96bfe6]"
     },
     {
       label: "Total Captions",
@@ -84,7 +84,7 @@ export default function AnalyticsPage() {
       value: totalCampaigns > 0 ? "94%" : "0%",
       change: "+0.8%",
       icon: MousePointer2,
-      color: "text-purple-400"
+      color: "text-[#bfffe6]"
     }
   ];
 

@@ -57,7 +57,7 @@ export default function GenerateCampaignPage() {
 
       // Save to backend
       try {
-        await fetch("/api/save-campaign", {
+        const saveResponse = await fetch("/api/save-campaign", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -65,9 +65,17 @@ export default function GenerateCampaignPage() {
             data: data
           }),
         });
+
+        if (!saveResponse.ok) {
+          const errorData = await saveResponse.json();
+          throw new Error(errorData.error || "Failed to save campaign");
+        }
+
+        toast.success("Campaign saved to history!");
       } catch (saveError) {
         console.error("Failed to save campaign:", saveError);
-        // We don't block the user if saving fails, as results are already generated
+        const err = saveError as Error;
+        toast.error(`Database Error: ${err.message}. Check if 'campaigns' table exists in Supabase.`);
       }
     } catch (error) {
       const err = error as Error;
